@@ -258,7 +258,8 @@
             <p>
                 Here is an example:
             </p>
-<pre class="text-sm font-bold">
+            <div class="overflow-x-auto pb-2">
+<pre class="text-xs font-bold">
 $config = [
     'title' => 'Benjamin Button',
     'observers' => [
@@ -270,6 +271,7 @@ $service = new \Typesetterio\Typesetter\Typesetter(
 );
 $pdfContent = $service->generate($config);
 </pre>
+            </div>
             <p>
                 You can customize any of the functionality that you normally can in the <code class="text-sm font-bold">config.php</code> file directly in that array. Note that you must build the configuration option as detailed above in order to use the service.
             </p>            
@@ -277,77 +279,79 @@ $pdfContent = $service->generate($config);
             <p>
                 Whether you're using the command line or Typesetter as a library, you have the following options to customize:
             </p>
-            <table class="border-4 border-double border-stone-500 !my-8 overflow-x-auto">
-                <thead>
-                    <tr>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Option</th>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Example</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">title</code></td>
-                        <td class="py-1 px-3">The title of your book.</td>
-                        <td class="py-1 px-3 font-mono text-sm">Benjamin Button</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">author</code></td>
-                        <td class="py-1 px-3">The author of your book.</td>
-                        <td class="py-1 px-3 font-mono text-sm">F. Scott Fitzgerald</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">theme</code></td>
-                        <td class="py-1 px-3">The path to the folder which contains your theme info. This should at minimum have a <code class="text-sm font-bold">theme.html</code> file in it.</td>
-                        <td class="py-1 px-3 font-mono text-sm">bb</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">content</code></td>
-                        <td class="py-1 px-3">The path to the folder with your markdown in it.</td>
-                        <td class="py-1 px-3 font-mono text-sm">./resources/content</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">contentFilter</code></td>
-                        <td class="py-1 px-3">A callable that is applied as a filter after the content has been gathered. Return <code class="text-sm font-bold">true</code> to keep, <code class="text-sm font-bold">false</code> to remove.</td>
-                        <td class="py-1 px-3 font-mono text-sm">fn() => true</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">contentExtra</code></td>
-                        <td class="py-1 px-3">A path that has extra content not associated directly with the main content. This is all content you want, no filtering.</td>
-                        <td class="py-1 px-3 font-mono text-sm whitespace-nowrap">./resources/content-extra</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">toc-enabled</code></td>
-                        <td class="py-1 px-3">Should Table of Contents be generated after cover?</td>
-                        <td class="py-1 px-3 font-mono text-sm">false</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">toc-links</code></td>
-                        <td class="py-1 px-3">Should table of Contents link to the headers in your document?</td>
-                        <td class="py-1 px-3 font-mono text-sm">false</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">toc-header</code></td>
-                        <td class="py-1 px-3">What header with <code class="text-sm font-bold">#toc-header</code> html attribute text? Empty will not generate one.</td>
-                        <td class="py-1 px-3 font-mono text-sm">My ToC</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">footer</code></td>
-                        <td class="py-1 px-3">What text should be in the footer? Footer is <code class="text-sm font-bold">&lt;footer class="footer"&gt;</footer> element. Leave empty to not generate a footer.</td>
-                        <td class="py-1 px-3 font-mono text-sm">Page {PAGENO}</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3 whitespace-nowrap"><code class="text-sm font-bold">markdown-extensions</code></td>
-                        <td class="py-1 px-3">An array of file extensions that indicate they should be rendered. Remember pages are generated in alphabetical or numerical order.</td>
-                        <td class="py-1 px-3 font-mono text-sm">['md']</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">observers</code></td>
-                        <td class="py-1 px-3">An array of new instances of observers. You can read more about them in the advanced section.</td>
-                        <td class="py-1 px-3 font-mono text-sm"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="overflow-x-auto !my-8 pb-2">
+                <table class="border-4 border-double border-stone-500">
+                    <thead>
+                        <tr>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Option</th>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">title</code></td>
+                            <td class="py-1 px-3">The title of your book.</td>
+                            <td class="py-1 px-3 font-mono text-sm">Benjamin Button</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">author</code></td>
+                            <td class="py-1 px-3">The author of your book.</td>
+                            <td class="py-1 px-3 font-mono text-sm">F. Scott Fitzgerald</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">theme</code></td>
+                            <td class="py-1 px-3">The path to the folder which contains your theme info. This should at minimum have a <code class="text-sm font-bold">theme.html</code> file in it.</td>
+                            <td class="py-1 px-3 font-mono text-sm">bb</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">content</code></td>
+                            <td class="py-1 px-3">The path to the folder with your markdown in it.</td>
+                            <td class="py-1 px-3 font-mono text-sm">./resources/content</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">contentFilter</code></td>
+                            <td class="py-1 px-3">A callable that is applied as a filter after the content has been gathered. Return <code class="text-sm font-bold">true</code> to keep, <code class="text-sm font-bold">false</code> to remove.</td>
+                            <td class="py-1 px-3 font-mono text-sm">fn() => true</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">contentExtra</code></td>
+                            <td class="py-1 px-3">A path that has extra content not associated directly with the main content. This is all content you want, no filtering.</td>
+                            <td class="py-1 px-3 font-mono text-sm whitespace-nowrap">./resources/content-extra</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">toc-enabled</code></td>
+                            <td class="py-1 px-3">Should Table of Contents be generated after cover?</td>
+                            <td class="py-1 px-3 font-mono text-sm">false</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">toc-links</code></td>
+                            <td class="py-1 px-3">Should table of Contents link to the headers in your document?</td>
+                            <td class="py-1 px-3 font-mono text-sm">false</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">toc-header</code></td>
+                            <td class="py-1 px-3">What header with <code class="text-sm font-bold">#toc-header</code> html attribute text? Empty will not generate one.</td>
+                            <td class="py-1 px-3 font-mono text-sm">My ToC</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">footer</code></td>
+                            <td class="py-1 px-3">What text should be in the footer? Footer is <code class="text-sm font-bold">&lt;footer class="footer"&gt;</footer> element. Leave empty to not generate a footer.</td>
+                            <td class="py-1 px-3 font-mono text-sm">Page {PAGENO}</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3 whitespace-nowrap"><code class="text-sm font-bold">markdown-extensions</code></td>
+                            <td class="py-1 px-3">An array of file extensions that indicate they should be rendered. Remember pages are generated in alphabetical or numerical order.</td>
+                            <td class="py-1 px-3 font-mono text-sm">['md']</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">observers</code></td>
+                            <td class="py-1 px-3">An array of new instances of observers. You can read more about them in the advanced section.</td>
+                            <td class="py-1 px-3 font-mono text-sm"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <p>
                 You're all set.  But, we're not done yet! Let's move on to the advanced section.
             </p>
@@ -376,74 +380,78 @@ $pdfContent = $service->generate($config);
             <p>
                 Available observer methods available are the following:
             </p>
-            <table class="border-4 border-double border-stone-500 !my-8">
-                <thead>
-                    <tr>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Method</th>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Parameters</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">initializedMarkdownEnvironment</code></td>
-                        <td class="py-1 px-3">After the Commonmark Environment has been initialized, this will allow customization of it.</td>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">League\CommonMark\Environment\Environment</code> that you can add extensions or renderers.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">initializedPdf</code></td>
-                        <td class="py-1 px-3">After the MPDF instance is created, you can customize it with this method.</td>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">Mpdf\Mpdf</code></td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">coverAdded</code></td>
-                        <td class="py-1 px-3">After any cover has been added, this will allow customization of the PDF. For example, you may want to alter your cover image.</td>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">Mpdf\Mpdf</code></td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">parsed</code></td>
-                        <td class="py-1 px-3">
-                            After a chapter's markdown has been parsed into HTML and set into a Chapter. The chapter makes methods available to understand the context and modify the HTML. 
-                            Note that the abstract observer class offers a <code class="text-sm font-bold">getDomDocument()</code> method that accepts a Chapter and returns a DomDocument. Then you can modify or parse content easier if you'd like.
-                        </td>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">Typesetterio\Typesetter\Chapter</code></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="overflow-x-auto !my-8 pb-2">
+                <table class="border-4 border-double border-stone-500">
+                    <thead>
+                        <tr>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Method</th>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">initializedMarkdownEnvironment</code></td>
+                            <td class="py-1 px-3">After the Commonmark Environment has been initialized, this will allow customization of it.</td>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">League\CommonMark\Environment\Environment</code> that you can add extensions or renderers.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">initializedPdf</code></td>
+                            <td class="py-1 px-3">After the MPDF instance is created, you can customize it with this method.</td>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">Mpdf\Mpdf</code></td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">coverAdded</code></td>
+                            <td class="py-1 px-3">After any cover has been added, this will allow customization of the PDF. For example, you may want to alter your cover image.</td>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">Mpdf\Mpdf</code></td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">parsed</code></td>
+                            <td class="py-1 px-3">
+                                After a chapter's markdown has been parsed into HTML and set into a Chapter. The chapter makes methods available to understand the context and modify the HTML. 
+                                Note that the abstract observer class offers a <code class="text-sm font-bold">getDomDocument()</code> method that accepts a Chapter and returns a DomDocument. Then you can modify or parse content easier if you'd like.
+                            </td>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">Typesetterio\Typesetter\Chapter</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <p>
                 The following Observers are available for you. They should all be prefixed by <code class="text-sm font-bold">Typestetterio\Typesetter\Observers</code>:
             </p>
-            <table class="border-4 border-double border-stone-500 !my-8">
-                <thead>
-                    <tr>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Class</th>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Parameters</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">BreakToPageBreak</code></td>
-                        <td class="py-1 px-3">Puts a page break after the template tag <code class="text-sm font-bold">{BREAK}</code></td>
-                        <td class="py-1 px-3">The template to use - defaults to <code class="text-sm font-bold">{BREAK}</code>.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">Credits</code></td>
-                        <td class="py-1 px-3">This adds a box to the last chapter HTML with a class called <code class="text-sm font-bold">credits-box</code>. The default theme should make that appear centered on a new last page. You can remove this if you wish.</td>
-                        <td class="py-1 px-3">The class to use on the box - default is <code class="text-sm font-bold">credits-box</code>.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">DefaultMarkdownConfiguration</code></td>
-                        <td class="py-1 px-3">This configures the markdown parser. You probably want to keep this one. Otherwise, if you'd like, you can generate a replacement to configure it on your own - which is only recommended for advanced users.</td>
-                        <td class="py-1 px-3">Languages to process - defaults to <code class="text-sm font-bold">['html', 'php', 'js']</code> - into codeblocks.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">FirstElementInChapterCSSClass</code></td>
-                        <td class="py-1 px-3">Puts a css class of <code class="text-sm font-bold">chapter-beginning</code> on the first element of every chapter except the first.</td>
-                        <td class="py-1 px-3">The class (defaults to <code class="text-sm font-bold">chapter-beginning</code>) and a boolean whether to skip the first chapter (default is <code class="text-sm font-bold">true</code>)</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="overflow-x-auto !my-8 pb-2">
+                <table class="border-4 border-double border-stone-500">
+                    <thead>
+                        <tr>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Class</th>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Parameters</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">BreakToPageBreak</code></td>
+                            <td class="py-1 px-3">Puts a page break after the template tag <code class="text-sm font-bold">{BREAK}</code></td>
+                            <td class="py-1 px-3">The template to use - defaults to <code class="text-sm font-bold">{BREAK}</code>.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">Credits</code></td>
+                            <td class="py-1 px-3">This adds a box to the last chapter HTML with a class called <code class="text-sm font-bold">credits-box</code>. The default theme should make that appear centered on a new last page. You can remove this if you wish.</td>
+                            <td class="py-1 px-3">The class to use on the box - default is <code class="text-sm font-bold">credits-box</code>.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">DefaultMarkdownConfiguration</code></td>
+                            <td class="py-1 px-3">This configures the markdown parser. You probably want to keep this one. Otherwise, if you'd like, you can generate a replacement to configure it on your own - which is only recommended for advanced users.</td>
+                            <td class="py-1 px-3">Languages to process - defaults to <code class="text-sm font-bold">['html', 'php', 'js']</code> - into codeblocks.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">FirstElementInChapterCSSClass</code></td>
+                            <td class="py-1 px-3">Puts a css class of <code class="text-sm font-bold">chapter-beginning</code> on the first element of every chapter except the first.</td>
+                            <td class="py-1 px-3">The class (defaults to <code class="text-sm font-bold">chapter-beginning</code>) and a boolean whether to skip the first chapter (default is <code class="text-sm font-bold">true</code>)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <h3 class="uppercase">Chapter</h3>
             <p>
                 The <code class="text-sm font-bold">Typesetterio\Typesetter\Chapter</code> class contains the content of your markdown for that specific chapter.
@@ -451,44 +459,46 @@ $pdfContent = $service->generate($config);
             <p>
                 It contains a number of useful methods for you to interact with the content while it is being converted.
             </p>
-            <table class="border-4 border-double border-stone-500 !my-8">
-                <thead>
-                    <tr>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Method</th>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">getHtml</code></td>
-                        <td class="py-1 px-3">Get's the rendered HTML from markdown. Remember, this may have been modified by other observers first.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">setHtml</code></td>
-                        <td class="py-1 px-3">You must set the HTML after you've modified it.  This will cast to string if it's not already.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">getChapterNumber</code></td>
-                        <td class="py-1 px-3">Returns an integer indicating which chapter number this is.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">getTotalChapters</code></td>
-                        <td class="py-1 px-3">Returns an integer indicating how many total chapters there is to be parsed.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">isFirstChapter</code></td>
-                        <td class="py-1 px-3">Returns an integer indicating how many total chapters there is to be parsed.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">isLastChapter</code></td>
-                        <td class="py-1 px-3">Returns a boolean indicating if you're dealing with the last chapter.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">getMetaData</code></td>
-                        <td class="py-1 px-3">If your content has YAML front matter, this will return an array of parsed properties from it. If not, an empty array.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="overflow-x-auto !my-8 pb-2">
+                <table class="border-4 border-double border-stone-500">
+                    <thead>
+                        <tr>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Method</th>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">getHtml</code></td>
+                            <td class="py-1 px-3">Get's the rendered HTML from markdown. Remember, this may have been modified by other observers first.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">setHtml</code></td>
+                            <td class="py-1 px-3">You must set the HTML after you've modified it.  This will cast to string if it's not already.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">getChapterNumber</code></td>
+                            <td class="py-1 px-3">Returns an integer indicating which chapter number this is.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">getTotalChapters</code></td>
+                            <td class="py-1 px-3">Returns an integer indicating how many total chapters there is to be parsed.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">isFirstChapter</code></td>
+                            <td class="py-1 px-3">Returns an integer indicating how many total chapters there is to be parsed.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">isLastChapter</code></td>
+                            <td class="py-1 px-3">Returns a boolean indicating if you're dealing with the last chapter.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">getMetaData</code></td>
+                            <td class="py-1 px-3">If your content has YAML front matter, this will return an array of parsed properties from it. If not, an empty array.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <p>
                 If you'd like to just get some status updates or notifications and don't need to modify any content, check out Events.
             </p>
@@ -502,76 +512,80 @@ $pdfContent = $service->generate($config);
             <p>
                 Here's an example:
             </p>
-<pre class="text-sm font-bold">
+            <div class="overflow-x-auto pb-2">
+<pre class="text-xs font-bold">
 $service = new \Typesetterio\Typesetter\Typesetter();
 $service->listen(\Typesetterio\Typesetter\Events\Finished::class, function () use ($myNotifier) {
     $myNotifier->alert('The process has finished');
 });
 </pre>
+            </div>
             <p>
                 At this time events do not contain any data. If you want to modify anything, please look at observers.
             </p>
             <p>
                 The following events are available (these are all going to be in the <code class="text-sm font-bold">Typesetterio\Typesetter\Events</code> namespace):
             </p>
-            <table class="border-4 border-double border-stone-500 !my-8">
-                <thead>
-                    <tr>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Event</th>
-                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">Starting</code></td>
-                        <td class="py-1 px-3">When the <code class="text-sm font-bold">generate()</code> method is first called.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">InitializedMarkdown</code></td>
-                        <td class="py-1 px-3">After the markdown environment has been created and all observers have ran on it.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">PDFInitialized</code></td>
-                        <td class="py-1 px-3">After the MPDF instance has been created and lightly configured.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">ThemeAdded</code></td>
-                        <td class="py-1 px-3">When the theme has been found and applied to the PDF.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">CoverImageAdded</code></td>
-                        <td class="py-1 px-3">A cover image has been found in your content and added.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">CoverHtmlAdded</code></td>
-                        <td class="py-1 px-3">A cover html file has been found in your content and added.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">CoverGenerated</code></td>
-                        <td class="py-1 px-3">Typesetter was unable to find either cover option, so it generated one.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">TOCGenerated</code></td>
-                        <td class="py-1 px-3">The Table of Contents has been generated and added.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">FooterGenerated</code></td>
-                        <td class="py-1 px-3">The footer content has been generated and added.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">ContentGenerating</code></td>
-                        <td class="py-1 px-3">The content has started rendering. This likely is the longest part of the process.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">PDFRendering</code></td>
-                        <td class="py-1 px-3">The PDF has started rendering from HTML to PDF binary. This may also take a long time.</td>
-                    </tr>
-                    <tr>
-                        <td class="py-1 px-3"><code class="text-sm font-bold">Finished</code></td>
-                        <td class="py-1 px-3">The whole process has finished and a PDF string has been returned from the method.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="overflow-x-auto !my-8 pb-2">
+                <table class="border-4 border-double border-stone-500">
+                    <thead>
+                        <tr>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Event</th>
+                            <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">Starting</code></td>
+                            <td class="py-1 px-3">When the <code class="text-sm font-bold">generate()</code> method is first called.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">InitializedMarkdown</code></td>
+                            <td class="py-1 px-3">After the markdown environment has been created and all observers have ran on it.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">PDFInitialized</code></td>
+                            <td class="py-1 px-3">After the MPDF instance has been created and lightly configured.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">ThemeAdded</code></td>
+                            <td class="py-1 px-3">When the theme has been found and applied to the PDF.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">CoverImageAdded</code></td>
+                            <td class="py-1 px-3">A cover image has been found in your content and added.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">CoverHtmlAdded</code></td>
+                            <td class="py-1 px-3">A cover html file has been found in your content and added.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">CoverGenerated</code></td>
+                            <td class="py-1 px-3">Typesetter was unable to find either cover option, so it generated one.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">TOCGenerated</code></td>
+                            <td class="py-1 px-3">The Table of Contents has been generated and added.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">FooterGenerated</code></td>
+                            <td class="py-1 px-3">The footer content has been generated and added.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">ContentGenerating</code></td>
+                            <td class="py-1 px-3">The content has started rendering. This likely is the longest part of the process.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">PDFRendering</code></td>
+                            <td class="py-1 px-3">The PDF has started rendering from HTML to PDF binary. This may also take a long time.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1 px-3"><code class="text-sm font-bold">Finished</code></td>
+                            <td class="py-1 px-3">The whole process has finished and a PDF string has been returned from the method.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <p>
                 You may listen to as many or as little events as you want. Remember, some of these are optional events based on your configuration.
             </p>
