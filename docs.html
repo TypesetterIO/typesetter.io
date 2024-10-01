@@ -15,7 +15,7 @@
   <body class="font-serif">
     <header class="container mx-auto max-w-5xl px-4 mb-8">
         <section class="relative text-center">
-            <div class="text-7xl text-center py-8 font-[cursive]">Typesetter<sub class="font-mono text-sm text-stone-500">.io</sub></div>
+            <a href="/" class="block text-7xl text-center py-8 font-[cursive]">Typesetter<sub class="font-mono text-sm text-stone-500">.io</sub></a>
             <a href="https://github.com/TypesetterIO" class="border-2 border-stone-600 hover:border-stone-950 hover:bg-neutral-200 p-4 md:absolute mb-4 md:mb-0 right-0 top-10 uppercase font-sans inline-flex md:flex items-center">
                 <div class="pe-1.5">
                     <img class="h-7 inline -mt-0.5" src="data:image/svg+xml,%3Csvg width='98' height='96' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z' fill='%2324292f'/%3E%3C/svg%3E" alt="Github">
@@ -37,7 +37,7 @@
 
     <main class="container mx-auto max-w-5xl px-4 mb-14">
         <section class="mb-8">
-            <h1 class="text-5xl sm:text-6xl text-center mb-4 leading-[1.2]">Documentation and Guides</h1>
+            <h1 class="text-5xl sm:text-6xl text-center mb-4 leading-[1.2]">Documentation and Guide</h1>
             <div class="h-[2px] my-6 w-72 mx-auto bg-stone-600"></div>
             <p class="italic text-xl sm:text-2xl sm:leading-9">
                 Convert Markdown to PDF using PHP. Use as a Composer library or a command line tool.
@@ -95,6 +95,509 @@
                 </aside>
             </div>
         </section>
+
+        <div class="h-[2px] mx-auto w-20 my-8 bg-stone-600"></div>
+
+        <section class="space-y-2 my-8">
+            <h2 id="installation" class="uppercase font-bold">Installation</h2>
+            <p>This requires PHP 8.1 or above.</p>
+            <p>This tool is meant to be part of the repository that you have your written content. Because of that, you can install it into the local directory with the following command.</p>
+            <p>
+                <code class="text-sm font-bold">composer require typesetterio/typesetter-cli</code>
+            </p>
+            <p>
+                If you want to just use the Typesetter library itself in your project without getting the command line tools, use the following:
+            </p>
+            <p>
+                <code class="text-sm font-bold">composer require typesetterio/typesetter</code>
+            </p>
+            <p>
+                This documentation focuses on the main functionality - which is using the command line option to generate ebooks. However, most of the configuration and methodology also applies to using the code as a library.
+            </p>
+        </section>
+
+        <div class="text-center">✰</div>
+
+        <section class="space-y-2 my-8">
+            <h2 id="basic-usage" class="uppercase font-bold">Basic Usage</h2>
+            <p>
+                Before we continue, note that there are two other great resources you may want to also look at.
+            </p>
+            <p>
+                First, you can look at the core library <a href="https://github.com/TypesetterIO/typesetter" target="_blank">typesetterio/typesetter</a>. This has the underlying service class and may give you more context. (You don't need to do that, though, if you just want to generate an ebook from your markdown on the command line.)
+            </p>            
+            <p>
+                Second, check out the <a href="https://github.com/TypesetterIO/example-book" target="_blank">example project</a> to see one way of setting up a project. While you're there, you can get a free ebook!
+            </p>            
+            <p>
+                Normally, this is meant to be used on the command line. The simplest way to use this would be like this:
+            </p>
+            <p>
+                <code class="text-sm font-bold">vendor/bin/typesetter generate</code>
+            </p>
+            <p>
+                But that's when everything is set up perfectly. We have some options to configure. Let's dig in.
+            </p>            
+            <h3 class="font-bold">Initialization</h3>
+            <p>
+                So, you installed it - now what? You can run the init command which will generate some content for you to review and modify.
+            </p>
+            <p>
+                <code class="text-sm font-bold">vendor/bin/typesetter init</code>
+            </p>
+            <p>
+                Then you'll find a local <code class="text-sm font-bold">config.php</code> that contains options for you to change. In addition, you'll receive a folder for your content. You can replace your content there.
+            </p>
+            <h3 class="font-bold">Generation</h3>
+            <p>
+                After you've updated your configuration and put in your content, you can generate the book:
+            </p>
+            <p>
+                <code class="text-sm font-bold">vendor/bin/typesetter generate</code>
+            </p>
+            <p>
+                Boom! You'll find the output PDF directly in the same directory. Now you're done!
+            </p>          
+            <p>
+                Ok now, where do you put your content? Or how do you make your own cover? That's covered next.
+            </p>
+        </section>
+
+        <div class="text-center">✰</div>
+
+        <section class="space-y-2 my-8">
+            <h2 id="content" class="uppercase font-bold">Content</h2>
+            <p>
+                You probably want to make an ebook fo your own content and markdown, right? Let's dig in to this.
+            </p>
+            <h3 class="font-bold">Cover</h3>
+            <p>
+                There are three options for a cover.  The image or the html file should be in the content folder.
+            </p>
+            <p>
+                First, you can generate a cover image.  The file should be named <code class="text-sm font-bold">cover.jpg</code>.  The default configuration for MPDF is 96dpi.  The default page is a A4.  This means a standard resolution that fits that is 794 x 1123 (96dpi).  You may experiment with different values for larger resolution displays. Remember, the larger in size your image, the larger the resulting PDF may be.
+            </p>
+            <p>
+                Second, you can generate a cover with HTML. The file should be named <code class="text-sm font-bold">cover.html</code>. For more details, reference the HTML processing of <a href="https://mpdf.github.io" target="_blank">MPDF</a>.
+            </p>
+            <p>
+                Finally, if you do not create either of these, Typesetter will automatically generate a cover page. It will use your title and author configuration options.
+            </p>
+            <h3 class="font-bold">Markdown Content</h3>
+            <p>
+                The <code class="text-sm font-bold">content</code> folder holds the content that is coupled with your config to create the PDF.
+            </p>
+            <p>
+                Chapters should be generated in sequentially named files in your content folder. Refer to <a href="https://commonmark.thephpleague.com/" target="_blank">League Commonmark</a> for
+                more tips on writing and configuring markdown processors. Out of the box there is a pretty good configuration. This includes the following functionality:                
+            </p>
+            <ul class="list-disc list-inside py-2">
+                <li>GitHub-flavored markdown</li>
+                <li>Attributes</li>
+                <li>Spatie's Fenced Code / Indent Code renders</li>
+            </ul>
+            <p>
+                But that's not it. Coming up, check out command line options for generation, config customization to configure your book options, and advanced features.
+            </p>
+        </section>
+
+        <div class="text-center">✰</div>
+
+        <section class="space-y-2 my-8">
+            <h2 id="cli" class="uppercase font-bold">Command Line Options</h2>
+            <p>
+                By default, the Typesetter generate command will work without any options. However, there are some that you want to use.
+            </p>
+            <table class="border-4 border-double border-stone-500 !my-8">
+                <thead>
+                    <tr>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Command</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Option</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">generate</code></td>
+                        <td class="py-1 px-3"><code class="text-sm font-bold text-nowrap">--config</code></td>
+                        <td class="py-1 px-3 text-sm">This is the path and filename relative to your current working directory of the config file. Default is <code class="text-xs font-bold">config.php</code> in the local directory.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">generate</code></td>
+                        <td class="py-1 px-3"><code class="text-sm font-bold text-nowrap">--output</code></td>
+                        <td class="py-1 px-3 text-sm">This is the path and filename relative to your current working directory of the output file. Directories will be created. Default is the current directory with a slugified version of the title.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                Excellent! Let's move on to customizing the configuration of your project.
+            </p>
+        </section>
+
+        <div class="text-center">✰</div>
+
+        <section class="space-y-2 my-8">
+            <h2 id="config" class="uppercase font-bold">Config Options</h2>
+            <p>
+                By default, the configuration used during generation is a <code class="text-sm font-bold">config.php</code> file in the local directory.  
+                You can customize this with <a href="#cli" class="underline">command line options</a> if you wish.  
+                If you're using the Typesetter library directly and without the CLI, these configuration options reflect the keys of the configuration array.
+            </p>
+            <h3 class="uppercase">Config File Format</h3>
+            <p>
+                The configuration file should return an array from PHP.  You may have other functionality in it as well (it is require'd during the processing of the command).  
+                It's recommended to use full namespaced class names when creating this file as the internal namespace may change as the project progresses.
+            </p>
+            <h3 class="uppercase">Creating Config Directly for the Library</h3>
+            <p>
+                Unless you're using the Typesetter functionality as a library, you can skip ahead.
+            </p>
+            <p>
+                Create a config array and pass that to the config maker. Then create a new instance of the Typesetter class. Call the generate method with your config to get a PDF binary return from MPDF.
+            </p>
+            <p>
+                Here is an example:
+            </p>
+<pre class="text-sm font-bold">
+$config = [
+    'title' => 'Benjamin Button',
+    'observers' => [
+        new \Typesetterio\Typesetter\Observers\DefaultMarkdownConfiguration(),
+    ],
+];
+$service = new \Typesetterio\Typesetter\Typesetter(
+    new \Typsetterio\Typesetter\Config($config)
+);
+$pdfContent = $service->generate($config);
+</pre>
+            <p>
+                You can customize any of the functionality that you normally can in the <code class="text-sm font-bold">config.php</code> file directly in that array. Note that you must build the configuration option as detailed above in order to use the service.
+            </p>            
+            <h3 class="uppercase">Options and Descriptions</h3>
+            <p>
+                Whether you're using the command line or Typesetter as a library, you have the following options to customize:
+            </p>
+            <table class="border-4 border-double border-stone-500 !my-8 overflow-x-auto">
+                <thead>
+                    <tr>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Option</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">title</code></td>
+                        <td class="py-1 px-3">The title of your book.</td>
+                        <td class="py-1 px-3 font-mono text-sm">Benjamin Button</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">author</code></td>
+                        <td class="py-1 px-3">The author of your book.</td>
+                        <td class="py-1 px-3 font-mono text-sm">F. Scott Fitzgerald</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">theme</code></td>
+                        <td class="py-1 px-3">The path to the folder which contains your theme info. This should at minimum have a <code class="text-sm font-bold">theme.html</code> file in it.</td>
+                        <td class="py-1 px-3 font-mono text-sm">bb</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">content</code></td>
+                        <td class="py-1 px-3">The path to the folder with your markdown in it.</td>
+                        <td class="py-1 px-3 font-mono text-sm">./resources/content</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">contentFilter</code></td>
+                        <td class="py-1 px-3">A callable that is applied as a filter after the content has been gathered. Return <code class="text-sm font-bold">true</code> to keep, <code class="text-sm font-bold">false</code> to remove.</td>
+                        <td class="py-1 px-3 font-mono text-sm">fn() => true</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">contentExtra</code></td>
+                        <td class="py-1 px-3">A path that has extra content not associated directly with the main content. This is all content you want, no filtering.</td>
+                        <td class="py-1 px-3 font-mono text-sm whitespace-nowrap">./resources/content-extra</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">toc-enabled</code></td>
+                        <td class="py-1 px-3">Should Table of Contents be generated after cover?</td>
+                        <td class="py-1 px-3 font-mono text-sm">false</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">toc-links</code></td>
+                        <td class="py-1 px-3">Should table of Contents link to the headers in your document?</td>
+                        <td class="py-1 px-3 font-mono text-sm">false</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">toc-header</code></td>
+                        <td class="py-1 px-3">What header with <code class="text-sm font-bold">#toc-header</code> html attribute text? Empty will not generate one.</td>
+                        <td class="py-1 px-3 font-mono text-sm">My ToC</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">footer</code></td>
+                        <td class="py-1 px-3">What text should be in the footer? Footer is <code class="text-sm font-bold">&lt;footer class="footer"&gt;</footer> element. Leave empty to not generate a footer.</td>
+                        <td class="py-1 px-3 font-mono text-sm">Page {PAGENO}</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3 whitespace-nowrap"><code class="text-sm font-bold">markdown-extensions</code></td>
+                        <td class="py-1 px-3">An array of file extensions that indicate they should be rendered. Remember pages are generated in alphabetical or numerical order.</td>
+                        <td class="py-1 px-3 font-mono text-sm">['md']</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">observers</code></td>
+                        <td class="py-1 px-3">An array of new instances of observers. You can read more about them in the advanced section.</td>
+                        <td class="py-1 px-3 font-mono text-sm"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                You're all set.  But, we're not done yet! Let's move on to the advanced section.
+            </p>
+        </section>
+
+        <div class="text-center">✰</div>
+
+        <section class="space-y-2 my-8">
+            <h2 id="advanced" class="uppercase font-bold">Advanced</h2>
+            <p>
+                In this section, more advanced usage and configuration is covered.
+            </p>
+            <h3 class="uppercase">Observers</h3>
+            <p>
+                Observers allow a decorator or visitor style of design pattern to interact with the process of generating this PDF.  To make things
+                as transparent as possible, some core items of the service are even configured in observers.     
+            </p>
+            <p>
+                Observers must implement the <code class="text-sm font-bold">Typesetterio\Typesetter\Contracts\Observer</code> interface.  You may extend the 
+                <code class="text-sm font-bold">Typesetterio\Typesetter\Observers\Observer</code> abstract class so you don't have to define every interface method. Then, you can 
+                override only the ones you want.                
+            </p>
+            <p>
+                Observers are ran in the order they are registered.
+            </p>
+            <p>
+                Available observer methods available are the following:
+            </p>
+            <table class="border-4 border-double border-stone-500 !my-8">
+                <thead>
+                    <tr>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Method</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Parameters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">initializedMarkdownEnvironment</code></td>
+                        <td class="py-1 px-3">After the Commonmark Environment has been initialized, this will allow customization of it.</td>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">League\CommonMark\Environment\Environment</code> that you can add extensions or renderers.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">initializedPdf</code></td>
+                        <td class="py-1 px-3">After the MPDF instance is created, you can customize it with this method.</td>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">Mpdf\Mpdf</code></td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">coverAdded</code></td>
+                        <td class="py-1 px-3">After any cover has been added, this will allow customization of the PDF. For example, you may want to alter your cover image.</td>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">Mpdf\Mpdf</code></td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">parsed</code></td>
+                        <td class="py-1 px-3">
+                            After a chapter's markdown has been parsed into HTML and set into a Chapter. The chapter makes methods available to understand the context and modify the HTML. 
+                            Note that the abstract observer class offers a <code class="text-sm font-bold">getDomDocument()</code> method that accepts a Chapter and returns a DomDocument. Then you can modify or parse content easier if you'd like.
+                        </td>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">Typesetterio\Typesetter\Chapter</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                The following Observers are available for you. They should all be prefixed by <code class="text-sm font-bold">Typestetterio\Typesetter\Observers</code>:
+            </p>
+            <table class="border-4 border-double border-stone-500 !my-8">
+                <thead>
+                    <tr>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Class</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Parameters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">BreakToPageBreak</code></td>
+                        <td class="py-1 px-3">Puts a page break after the template tag <code class="text-sm font-bold">{BREAK}</code></td>
+                        <td class="py-1 px-3">The template to use - defaults to <code class="text-sm font-bold">{BREAK}</code>.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">Credits</code></td>
+                        <td class="py-1 px-3">This adds a box to the last chapter HTML with a class called <code class="text-sm font-bold">credits-box</code>. The default theme should make that appear centered on a new last page. You can remove this if you wish.</td>
+                        <td class="py-1 px-3">The class to use on the box - default is <code class="text-sm font-bold">credits-box</code>.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">DefaultMarkdownConfiguration</code></td>
+                        <td class="py-1 px-3">This configures the markdown parser. You probably want to keep this one. Otherwise, if you'd like, you can generate a replacement to configure it on your own - which is only recommended for advanced users.</td>
+                        <td class="py-1 px-3">Languages to process - defaults to <code class="text-sm font-bold">['html', 'php', 'js']</code> - into codeblocks.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">FirstElementInChapterCSSClass</code></td>
+                        <td class="py-1 px-3">Puts a css class of <code class="text-sm font-bold">chapter-beginning</code> on the first element of every chapter except the first.</td>
+                        <td class="py-1 px-3">The class (defaults to <code class="text-sm font-bold">chapter-beginning</code>) and a boolean whether to skip the first chapter (default is <code class="text-sm font-bold">true</code>)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 class="uppercase">Chapter</h3>
+            <p>
+                The <code class="text-sm font-bold">Typesetterio\Typesetter\Chapter</code> class contains the content of your markdown for that specific chapter.
+            </p>
+            <p>
+                It contains a number of useful methods for you to interact with the content while it is being converted.
+            </p>
+            <table class="border-4 border-double border-stone-500 !my-8">
+                <thead>
+                    <tr>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Method</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">getHtml</code></td>
+                        <td class="py-1 px-3">Get's the rendered HTML from markdown. Remember, this may have been modified by other observers first.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">setHtml</code></td>
+                        <td class="py-1 px-3">You must set the HTML after you've modified it.  This will cast to string if it's not already.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">getChapterNumber</code></td>
+                        <td class="py-1 px-3">Returns an integer indicating which chapter number this is.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">getTotalChapters</code></td>
+                        <td class="py-1 px-3">Returns an integer indicating how many total chapters there is to be parsed.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">isFirstChapter</code></td>
+                        <td class="py-1 px-3">Returns an integer indicating how many total chapters there is to be parsed.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">isLastChapter</code></td>
+                        <td class="py-1 px-3">Returns a boolean indicating if you're dealing with the last chapter.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">getMetaData</code></td>
+                        <td class="py-1 px-3">If your content has YAML front matter, this will return an array of parsed properties from it. If not, an empty array.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                If you'd like to just get some status updates or notifications and don't need to modify any content, check out Events.
+            </p>
+            <h3 class="uppercase">Events</h3>
+            <p>
+                During the process of conversion, Typesetter issues some events that you may listen to. This can be useful for giving status updates or creating logs.
+            </p>
+            <p>
+                In order to register a listener, call the <code class="text-sm font-bold">listen</code> method with an event class and a callable.
+            </p>
+            <p>
+                Here's an example:
+            </p>
+<pre class="text-sm font-bold">
+$service = new \Typesetterio\Typesetter\Typesetter();
+$service->listen(\Typesetterio\Typesetter\Events\Finished::class, function () use ($myNotifier) {
+    $myNotifier->alert('The process has finished');
+});
+</pre>
+            <p>
+                At this time events do not contain any data. If you want to modify anything, please look at observers.
+            </p>
+            <p>
+                The following events are available (these are all going to be in the <code class="text-sm font-bold">Typesetterio\Typesetter\Events</code> namespace):
+            </p>
+            <table class="border-4 border-double border-stone-500 !my-8">
+                <thead>
+                    <tr>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Event</th>
+                        <th class="py-1 px-3 text-start uppercase font-normal tracking-widest">Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">Starting</code></td>
+                        <td class="py-1 px-3">When the <code class="text-sm font-bold">generate()</code> method is first called.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">InitializedMarkdown</code></td>
+                        <td class="py-1 px-3">After the markdown environment has been created and all observers have ran on it.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">PDFInitialized</code></td>
+                        <td class="py-1 px-3">After the MPDF instance has been created and lightly configured.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">ThemeAdded</code></td>
+                        <td class="py-1 px-3">When the theme has been found and applied to the PDF.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">CoverImageAdded</code></td>
+                        <td class="py-1 px-3">A cover image has been found in your content and added.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">CoverHtmlAdded</code></td>
+                        <td class="py-1 px-3">A cover html file has been found in your content and added.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">CoverGenerated</code></td>
+                        <td class="py-1 px-3">Typesetter was unable to find either cover option, so it generated one.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">TOCGenerated</code></td>
+                        <td class="py-1 px-3">The Table of Contents has been generated and added.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">FooterGenerated</code></td>
+                        <td class="py-1 px-3">The footer content has been generated and added.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">ContentGenerating</code></td>
+                        <td class="py-1 px-3">The content has started rendering. This likely is the longest part of the process.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">PDFRendering</code></td>
+                        <td class="py-1 px-3">The PDF has started rendering from HTML to PDF binary. This may also take a long time.</td>
+                    </tr>
+                    <tr>
+                        <td class="py-1 px-3"><code class="text-sm font-bold">Finished</code></td>
+                        <td class="py-1 px-3">The whole process has finished and a PDF string has been returned from the method.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                You may listen to as many or as little events as you want. Remember, some of these are optional events based on your configuration.
+            </p>
+            <h3 class="uppercase">Themes</h3>
+            <p>
+                Theming support is done with HTML and CSS. The theme folder should contain a <code class="text-sm font-bold">theme.html</code> which contains a <code class="text-sm font-bold">&lt;style&gt;</code> declaration
+                as if it were in the head of an HTML file. This is where you can customize the theme of your PDF. Remember that you will 
+                be working with print styles in CSS so you can use things like page break.
+            </p>
+            <p>
+                More to come here!
+            </p>
+            <h3 class="uppercase">Fonts</h3>
+            <p>
+                At this time, Typesetter only supports the fonts that MPDF does. It will support font management in the future.
+            </p>
+            <p>
+                To see the list of fonts that are available, see the <a href="https://github.com/mpdf/mpdf/tree/v8.1.6/ttfonts" target="_blank" class="underline">MPDF Fonts Directory</a>.
+            </p>
+        </section>
+
+        <div class="h-[2px] my-6 w-72 mx-auto bg-stone-600"></div>
+
+        <p>
+            You're all set.  Still need some help? You might try looking at the <a href="https://github.com/TypesetterIO/example-book" class="underline">example book project</a> to get some hints.
+        </p>
     </main>
 
     <footer class="mb-10 text-sm uppercase py-1 text-center container mx-auto max-w-5xl px-4 border-y-2 border-stone-500 text-stone-700">
