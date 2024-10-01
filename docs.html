@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-stone-300 text-stone-800">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Convert Markdown to PDF with PHP | Typesetter.io</title>
+    <meta name="description" content="Convert your markdown files into an ebook PDF.">
+    <meta property="og:title" content="Convert Markdown to PDF with PHP">
+    <meta property="og:description" content="Convert your markdown files into an ebook PDF.">
+    <meta property="og:site_name" content="Typesetter">
+    <meta property="og:image" content="https://typesetter.io/og-image.jpg">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.usefathom.com/script.js" data-site="CSEYMIVD" defer></script>
+    <script type="module" src="/main.js"></script>
+  </head>
+  <body class="font-serif">
+    <header class="container mx-auto max-w-5xl px-4 mb-8">
+        <section class="relative text-center">
+            <div class="text-7xl text-center py-8 font-[cursive]">Typesetter<sub class="font-mono text-sm text-stone-500">.io</sub></div>
+            <a href="https://github.com/TypesetterIO" class="border-2 border-stone-600 hover:border-stone-950 hover:bg-neutral-200 p-4 md:absolute mb-4 md:mb-0 right-0 top-10 uppercase font-sans inline-flex md:flex items-center">
+                <div class="pe-1.5">
+                    <img class="h-7 inline -mt-0.5" src="data:image/svg+xml,%3Csvg width='98' height='96' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z' fill='%2324292f'/%3E%3C/svg%3E" alt="Github">
+                </div>
+                <div class="leading-4 text-sm">
+                    Now on 
+                    <br>
+                    GitHub!
+                </div>
+            </a>
+        </section>
+            
+        <nav class="text-sm uppercase md:flex justify-between border-y-2 border-y-stone-600 py-0.5 tracking-wide">
+            <a href="/" class="hover:text-black block md:inline">Home page</a>
+            <a href="/docs" class="hover:text-black block md:inline">Detailed Documentation and Examples</a>
+            <a href="https://aaronsaray.com/contact" class="hover:text-black block md:inline" target="_blank">Contact Aaron</a>
+        </nav>    
+    </header>
+
+    <main class="container mx-auto max-w-5xl px-4 mb-14">
+        <section class="mb-8">
+            <h1 class="text-5xl sm:text-6xl text-center mb-4 leading-[1.2]">Documentation and Guides</h1>
+            <div class="h-[2px] my-6 w-72 mx-auto bg-stone-600"></div>
+            <p class="italic text-xl sm:text-2xl sm:leading-9">
+                Convert Markdown to PDF using PHP. Use as a Composer library or a command line tool.
+            </p>    
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 md:space-x-24">
+            <div class="mb-8 md:mb-0">
+                <h2 class="uppercase mb-3 font-bold border-y py-1 border-stone-500">Quick Start Guide</h2>
+                <p class="mb-2">
+                    Create ebooks, flyers, one-sheets and more from markdown! This PHP command converts your markdown into a PDF.
+                </p>
+                <p class="mb-2">
+                    In this quick-start guide, we're going to look at creating an ebook from our markdown. The end result will be similar to our <a href="https://github.com/TypesetterIO/example-book" target="_blank" class="underline">example book</a>.
+                </p>
+                <p class="uppercase mb-2 font-bold">Steps</p>
+                <p class="mb-2">
+                    First, initialize and version a folder using Git - you can git ignore the <code class="text-sm font-bold">vendor</code> folder if you wish (but you don't have to). Remember this is a book project, not necessarily a PHP package/project.
+                </p>
+                <p class="mb-2">
+                    Then, install the CLI tool:  
+                </p>
+                <p class="mb-2">
+                    <code class="text-sm font-bold">composer require typesetterio/typesetter-cli</code>.
+                </p>
+                <p class="mb-2">
+                    After it's installed, generate the default config file (you can customize this.) Run:
+                </p>
+                <p class="mb-2">
+                    <code class="text-sm font-bold">vendor/bin/typesetter init</code>
+                </p>
+                <p class="mb-2">
+                    Customize the <code class="text-sm font-bold">config.php</code> with the author and title and replace <code class="text-sm font-bold">content/*</code> with the contents for your book. 
+                    A test cover has been generated for you at <code class="text-sm font-bold">content/cover.jpg</code>. If you want more customization, modify the <code class="text-sm font-bold">theme/theme.html</code> with custom print media CSS.
+                </p>
+                <p>
+                    Finally, generate the output by running <code class="text-sm font-bold">vendor/bin/typesetter generate --output=generated/my-book-title.pdf</code> and you can find your PDF in the <code class="text-sm font-bold">generated</code> folder.
+                </p>
+            </div>
+            <div>
+                <section class="bg-stone-800 text-stone-200 p-4 relative text-center overflow-clip mb-4">
+                    <div class="absolute bg-stone-300 size-8 -top-4 -left-4 rounded-full"></div>
+                    <div class="absolute bg-stone-300 size-8 -top-4 -right-4 rounded-full"></div>
+                    <div class="absolute bg-stone-300 size-8 -bottom-4 -left-4 rounded-full"></div>
+                    <div class="absolute bg-stone-300 size-8 -bottom-4 -right-4 rounded-full"></div>
+                    <div class="text-xl font-light">Documentation Sections</div>
+                </section>
+                <aside class="text-center flex flex-col space-y-3">
+                    <a href="#installation" class="uppercase text-sm hover:text-black">✰ Installation ✰</a>
+                    <a href="#basic-usage" class="uppercase text-sm hover:text-black">✰ Basic Usage ✰</a>
+                    <a href="#content" class="uppercase text-sm hover:text-black">✰ Content ✰</a>
+                    <a href="#cli" class="uppercase text-sm hover:text-black">✰ Command Line Options ✰</a>
+                    <a href="#config" class="uppercase text-sm hover:text-black">✰ Config Options ✰</a>
+                    <a href="#advanced" class="uppercase text-sm hover:text-black">✰ Advanced ✰</a>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mb-10 text-sm uppercase py-1 text-center container mx-auto max-w-5xl px-4 border-y-2 border-stone-500 text-stone-700">
+        Typesetter is on <a href="https://github.com/TypesetterIO" target="_blank" class="underline">GitHub</a>.
+        &copy; 2023-Present <a href="https://aaronsaray.com" target="_blank" class="underline">Aaron Saray</a>.
+    </footer>
+</body>
+</html>
