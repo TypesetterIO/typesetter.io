@@ -263,8 +263,8 @@
           96dpi. The default page is a A4. This means a standard resolution that fits that is 794 x
           1123 (96dpi). You may experiment with different values for larger resolution displays.
           Remember, the larger in size your image, the larger the resulting PDF may be. The image is
-          drawn at 210 x 297 mm (A4) whatever <code class="text-sm font-bold">mpdf.format</code> is
-          set to.
+          drawn at 210 x 297 mm (A4) whatever <code class="text-sm font-bold">format</code> you set
+          in the <code class="text-sm font-bold">mpdf</code> option.
         </p>
         <p>
           Second, you can generate a cover with HTML. The file should be named
@@ -300,12 +300,10 @@
           blocks are plain <code class="text-sm font-bold">&lt;pre&gt;&lt;code&gt;</code>.
         </p>
         <p>
-          The <code class="text-sm font-bold">content</code> folder is scanned recursively. Chapters
-          are sorted by file name alone; the folder a file is in is ignored. Two files with the same
-          name anywhere throw <code class="text-sm font-bold">InvalidConfigException</code>. Files
-          from <code class="text-sm font-bold">content-extra</code> join the same sort, so name them
-          to land where you want them (the library's demo uses
-          <code class="text-sm font-bold">content-extra/90-appendix.md</code>).
+          You can use sub-folders in your content folder. Chapters are sorted by file name only, not
+          by folder, so every file name must be unique. Files from
+          <code class="text-sm font-bold">content-extra</code> are sorted in with the rest, so name
+          them to land where you want.
         </p>
         <p>
           But that's not it. Coming up, check out command line options for generation, config
@@ -392,23 +390,6 @@ $config = new \Typesetterio\Typesetter\Config([
     'author' => 'F. Scott Fitzgerald',
     'theme' => 'bb',
     'content' => 'content',
-
-    'toc-enabled' => true,
-    'toc-links' => true,
-    'toc-header' => 'Table of Contents',
-    'toc-levels' => ['H1', 'H2'],
-    'toc-attributes' => ['resetpagenum' => 1],
-
-    'footer' => '{PAGENO}',
-
-    'mpdf' => [
-        'fontDir' => ['bb/fonts'],
-        'fontdata' => [
-            'garamond' => ['R' => 'Garamond.ttf', 'B' => 'Garamond-Bold.ttf', 'I' => 'Garamond-Italic.ttf'],
-        ],
-    ],
-
-    'markdown-extensions' => ['md', 'markdown'],
     'observers' => [
         new \Typesetterio\Typesetter\Observers\DefaultMarkdownConfiguration(),
         new \Typesetterio\Typesetter\Observers\FirstElementInChapterCssClass(),
@@ -422,11 +403,6 @@ $pdfContent = $service->generate($config);
 file_put_contents('my-pdf.pdf', $pdfContent);
 </pre>
         </div>
-        <p>
-          <code class="text-sm font-bold">Config</code> validates when it is constructed:
-          <code class="text-sm font-bold">&lt;theme&gt;/theme.html</code> and the
-          <code class="text-sm font-bold">content</code> directory must exist.
-        </p>
         <p>
           You can customize any of the functionality that you normally can in the
           <code class="text-sm font-bold">config.php</code> file directly in that array. Note that
@@ -482,11 +458,11 @@ file_put_contents('my-pdf.pdf', $pdfContent);
                   <code class="text-sm font-bold">content-filter</code>
                 </td>
                 <td class="py-1 px-3">
-                  A callable
-                  <code class="text-sm font-bold">(SplFileInfo $file, string $filename): bool</code>
-                  applied to each file in <code class="text-sm font-bold">content</code> after the
-                  extension filter. Return <code class="text-sm font-bold">true</code> to keep the
-                  file, <code class="text-sm font-bold">false</code> to remove it.
+                  A callable that is applied as a filter to each markdown file in
+                  <code class="text-sm font-bold">content</code>. It receives the
+                  <code class="text-sm font-bold">SplFileInfo</code> and the file name. Return
+                  <code class="text-sm font-bold">true</code> to keep the file,
+                  <code class="text-sm font-bold">false</code> to remove it.
                 </td>
                 <td class="py-1 px-3 text-sm">keeps every file</td>
                 <td class="py-1 px-3 font-mono text-sm">fn() => true</td>
@@ -496,10 +472,8 @@ file_put_contents('my-pdf.pdf', $pdfContent);
                   <code class="text-sm font-bold">content-extra</code>
                 </td>
                 <td class="py-1 px-3">
-                  A path that has extra content not associated directly with the main content. The
-                  directory must exist. Its files are filtered by
-                  <code class="text-sm font-bold">markdown-extensions</code> only, never by
-                  <code class="text-sm font-bold">content-filter</code>.
+                  A path that has extra content not associated directly with the main content.
+                  <code class="text-sm font-bold">content-filter</code> is not applied to it.
                 </td>
                 <td class="py-1 px-3 text-sm">none</td>
                 <td class="py-1 px-3 font-mono text-sm whitespace-nowrap">
@@ -523,10 +497,10 @@ file_put_contents('my-pdf.pdf', $pdfContent);
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">toc-header</code></td>
                 <td class="py-1 px-3">
-                  The heading text of the Table of Contents, rendered as
-                  <code class="text-sm font-bold">&lt;h1 id="toc-header"&gt;</code> above the
-                  entries. It is also the Table of Contents' label in the PDF outline. An empty
-                  string skips the heading and labels the outline "Contents".
+                  The heading above the Table of Contents. It is an
+                  <code class="text-sm font-bold">h1</code> with the id
+                  <code class="text-sm font-bold">toc-header</code>, and it also names the Table of
+                  Contents in the PDF outline.
                 </td>
                 <td class="py-1 px-3 font-mono text-sm">Table of Contents</td>
                 <td class="py-1 px-3 font-mono text-sm">My ToC</td>
@@ -534,10 +508,9 @@ file_put_contents('my-pdf.pdf', $pdfContent);
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">toc-levels</code></td>
                 <td class="py-1 px-3">
-                  A non-empty list of unique heading tags,
-                  <code class="text-sm font-bold">H1</code> to
-                  <code class="text-sm font-bold">H6</code>. It builds both the Table of Contents
-                  and the PDF outline bookmarks.
+                  The heading tags (<code class="text-sm font-bold">H1</code> to
+                  <code class="text-sm font-bold">H6</code>) to include in the Table of Contents and
+                  the PDF outline.
                 </td>
                 <td class="py-1 px-3 font-mono text-sm whitespace-nowrap">['H1', 'H2']</td>
                 <td class="py-1 px-3 font-mono text-sm whitespace-nowrap">['H1', 'H2', 'H3']</td>
@@ -547,19 +520,12 @@ file_put_contents('my-pdf.pdf', $pdfContent);
                   <code class="text-sm font-bold">toc-attributes</code>
                 </td>
                 <td class="py-1 px-3">
-                  Attributes merged over the ones the library sets on mPDF's
-                  <code class="text-sm font-bold">&lt;tocpagebreak&gt;</code> tag. Your values win.
+                  Extra attributes for MPDF's
+                  <code class="text-sm font-bold">&lt;tocpagebreak&gt;</code> tag. For example,
                   <code class="text-sm font-bold">['resetpagenum' => 1]</code> restarts page
-                  numbering after the Table of Contents. Other attributes a theme cannot reach:
-                  <code class="text-sm font-bold">paging</code>,
-                  <code class="text-sm font-bold">outdent</code>,
-                  <code class="text-sm font-bold">toc-postHTML</code>,
-                  <code class="text-sm font-bold">pagenumstyle</code>,
-                  <code class="text-sm font-bold">suppress</code>. The library sets
-                  <code class="text-sm font-bold">toc-preHTML</code>,
-                  <code class="text-sm font-bold">toc-bookmarkText</code>,
-                  <code class="text-sm font-bold">links</code>, and
-                  <code class="text-sm font-bold">toc-page-selector</code>.
+                  numbering after the Table of Contents. Your values win over the ones Typesetter
+                  sets from <code class="text-sm font-bold">toc-header</code> and
+                  <code class="text-sm font-bold">toc-links</code>.
                 </td>
                 <td class="py-1 px-3 font-mono text-sm">[]</td>
                 <td class="py-1 px-3 font-mono text-sm whitespace-nowrap">['resetpagenum' => 1]</td>
@@ -567,16 +533,14 @@ file_put_contents('my-pdf.pdf', $pdfContent);
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">footer</code></td>
                 <td class="py-1 px-3">
-                  What text should be in the footer? The text is HTML-escaped, so tags are not
-                  possible; mPDF placeholders such as
+                  What text should be in the footer? You can use MPDF placeholders like
                   <code class="text-sm font-bold">{PAGENO}</code> and
-                  <code class="text-sm font-bold">{nbpg}</code> work. Footer is
+                  <code class="text-sm font-bold">{nbpg}</code>, but not HTML. Footer is
                   <code class="text-sm font-bold"
                     >&lt;footer class="footer"&gt;&lt;/footer&gt;</code
                   >
-                  element. Leave empty to not generate a footer. It prints on every content page,
-                  including pages under a theme <code class="text-sm font-bold">@page</code> rule,
-                  and never on the Table of Contents page.
+                  element. Leave empty to not generate a footer. The Table of Contents page never
+                  has one.
                 </td>
                 <td class="py-1 px-3 font-mono text-sm">{PAGENO}</td>
                 <td class="py-1 px-3 font-mono text-sm">Page {PAGENO}</td>
@@ -584,24 +548,13 @@ file_put_contents('my-pdf.pdf', $pdfContent);
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">mpdf</code></td>
                 <td class="py-1 px-3">
-                  Options for the mPDF constructor, merged over the library defaults (<code
-                    class="text-sm font-bold"
-                    >mode</code
-                  >
-                  utf-8, <code class="text-sm font-bold">margin_left</code> and
-                  <code class="text-sm font-bold">margin_right</code> 27,
-                  <code class="text-sm font-bold">margin_top</code> and
-                  <code class="text-sm font-bold">margin_bottom</code> 14,
-                  <code class="text-sm font-bold">showImageErrors</code> true). Useful keys:
-                  <code class="text-sm font-bold">format</code>,
+                  Options passed to MPDF, like <code class="text-sm font-bold">format</code>,
                   <code class="text-sm font-bold">orientation</code>,
-                  <code class="text-sm font-bold">margin_*</code>,
-                  <code class="text-sm font-bold">tempDir</code>,
-                  <code class="text-sm font-bold">fontDir</code>,
-                  <code class="text-sm font-bold">fontdata</code>.
+                  <code class="text-sm font-bold">tempDir</code>, or the margin options. Typesetter
+                  starts with 27mm side margins and 14mm top and bottom. For
                   <code class="text-sm font-bold">fontDir</code> and
-                  <code class="text-sm font-bold">fontdata</code> are added to mPDF's bundled fonts
-                  (see Fonts in the advanced section). An option name mPDF does not know throws
+                  <code class="text-sm font-bold">fontdata</code>, see Fonts in the advanced
+                  section. An option MPDF does not know throws
                   <code class="text-sm font-bold">InvalidConfigException</code>.
                 </td>
                 <td class="py-1 px-3 font-mono text-sm">[]</td>
@@ -621,12 +574,9 @@ file_put_contents('my-pdf.pdf', $pdfContent);
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">observers</code></td>
                 <td class="py-1 px-3">
-                  An array of new instances of observers. Setting this key replaces the default
-                  list, so include
-                  <code class="text-sm font-bold">DefaultMarkdownConfiguration</code> yourself. Each
-                  entry must implement
-                  <code class="text-sm font-bold">Typesetterio\Typesetter\Contracts\Observer</code>.
-                  You can read more about them in the advanced section.
+                  An array of new instances of observers. If you set this, the default is replaced,
+                  so add <code class="text-sm font-bold">DefaultMarkdownConfiguration</code>
+                  yourself. You can read more about them in the advanced section.
                 </td>
                 <td class="py-1 px-3 font-mono text-sm">[new DefaultMarkdownConfiguration()]</td>
                 <td class="py-1 px-3 font-mono text-sm"></td>
@@ -640,20 +590,15 @@ file_put_contents('my-pdf.pdf', $pdfContent);
           <li>
             <code class="text-sm font-bold"
               >Typesetterio\Typesetter\Exceptions\InvalidConfigException</code
-            >
-            for an unknown config key, a missing
-            <code class="text-sm font-bold">&lt;theme&gt;/theme.html</code>, a missing
-            <code class="text-sm font-bold">content</code> or
-            <code class="text-sm font-bold">content-extra</code> directory, an
-            <code class="text-sm font-bold">observers</code> entry that is not an
-            <code class="text-sm font-bold">Observer</code>, an invalid
-            <code class="text-sm font-bold">toc-levels</code> value, an unknown
-            <code class="text-sm font-bold">mpdf</code> option, no content files found, or duplicate
-            content file names.
+            >: a problem with your config or content, like an unknown option, a missing theme or
+            content folder, no content files, or two files with the same name.
           </li>
           <li>
-            <code class="text-sm font-bold">RuntimeException</code> for a content file that cannot
-            be read.
+            <code class="text-sm font-bold">RuntimeException</code>: a content file can't be read.
+          </li>
+          <li>
+            <code class="text-sm font-bold">Mpdf\MpdfImageException</code>: an image is missing or
+            broken.
           </li>
         </ul>
         <p>You're all set. But, we're not done yet! Let's move on to the advanced section.</p>
@@ -696,7 +641,7 @@ file_put_contents('my-pdf.pdf', $pdfContent);
             <tbody>
               <tr>
                 <td class="py-1 px-3">
-                  <code class="text-sm font-bold">initializedMarkdownEnvironment</code>
+                  <code class="text-sm font-bold">markdownEnvironmentInitialized</code>
                 </td>
                 <td class="py-1 px-3">
                   After the Commonmark Environment has been initialized, this will allow
@@ -708,7 +653,7 @@ file_put_contents('my-pdf.pdf', $pdfContent);
                 </td>
               </tr>
               <tr>
-                <td class="py-1 px-3"><code class="text-sm font-bold">initializedPdf</code></td>
+                <td class="py-1 px-3"><code class="text-sm font-bold">pdfInitialized</code></td>
                 <td class="py-1 px-3">
                   After the MPDF instance is created, you can customize it with this method.
                 </td>
@@ -723,25 +668,29 @@ file_put_contents('my-pdf.pdf', $pdfContent);
                 <td class="py-1 px-3"><code class="text-sm font-bold">Mpdf\Mpdf</code></td>
               </tr>
               <tr>
-                <td class="py-1 px-3"><code class="text-sm font-bold">parsed</code></td>
+                <td class="py-1 px-3"><code class="text-sm font-bold">chapterParsed</code></td>
                 <td class="py-1 px-3">
                   After a chapter's markdown has been parsed into HTML and set into a Chapter. The
                   chapter makes methods available to understand the context and modify the HTML.
                   Note that the abstract observer class offers a
-                  <code class="text-sm font-bold">getDomDocument()</code> method that accepts a
-                  Chapter and returns a DomDocument. Then you can modify or parse content easier if
-                  you'd like.
+                  <code class="text-sm font-bold">getHtmlDocument()</code> method that accepts a
+                  Chapter and returns a <code class="text-sm font-bold">Dom\HTMLDocument</code>,
+                  with your chapter's elements inside its
+                  <code class="text-sm font-bold">body</code>. When you're done, pass the Chapter
+                  and the document to
+                  <code class="text-sm font-bold">setHtmlFromDocument()</code> to save your changes.
                 </td>
                 <td class="py-1 px-3">
-                  <code class="text-sm font-bold">Typesetterio\Typesetter\Chapter</code>
+                  <code class="text-sm font-bold">Typesetterio\Typesetter\Contracts\Chapter</code>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p>The methods are called in the order listed above.</p>
         <p>
           The following Observers are available for you. They should all be prefixed by
-          <code class="text-sm font-bold">Typestetterio\Typesetter\Observers</code>:
+          <code class="text-sm font-bold">Typesetterio\Typesetter\Observers</code>:
         </p>
         <div class="overflow-x-auto my-8! pb-2">
           <table class="border-4 border-double border-stone-500">
@@ -770,9 +719,10 @@ file_put_contents('my-pdf.pdf', $pdfContent);
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">Credits</code></td>
                 <td class="py-1 px-3">
-                  This adds a box to the last chapter HTML with a class called
-                  <code class="text-sm font-bold">credits-box</code>. The default theme should make
-                  that appear centered on a new last page. You can remove this if you wish.
+                  This adds a "Created using Typesetter.io" box to the end of the last chapter with
+                  a class called <code class="text-sm font-bold">credits-box</code>. The theme from
+                  <code class="text-sm font-bold">init</code> centers it. You can remove this if you
+                  wish.
                 </td>
                 <td class="py-1 px-3">
                   The class to use on the box - default is
@@ -786,16 +736,15 @@ file_put_contents('my-pdf.pdf', $pdfContent);
                 <td class="py-1 px-3">
                   This configures the markdown parser. You probably want to keep this one.
                   Otherwise, if you'd like, you can generate a replacement to configure it on your
-                  own - which is only recommended for advanced users.
+                  own - which is only recommended for advanced users. It registers the Attributes
+                  and Front Matter extensions and the
+                  <code class="text-sm font-bold">tempest/highlight</code> fenced code renderer.
                 </td>
-                <td class="py-1 px-3">
-                  Languages to process - defaults to
-                  <code class="text-sm font-bold">['html', 'php', 'js']</code> - into codeblocks.
-                </td>
+                <td class="py-1 px-3">None.</td>
               </tr>
               <tr>
                 <td class="py-1 px-3">
-                  <code class="text-sm font-bold">FirstElementInChapterCSSClass</code>
+                  <code class="text-sm font-bold">FirstElementInChapterCssClass</code>
                 </td>
                 <td class="py-1 px-3">
                   Puts a css class of <code class="text-sm font-bold">chapter-beginning</code> on
@@ -813,7 +762,9 @@ file_put_contents('my-pdf.pdf', $pdfContent);
         <h3 class="uppercase">Chapter</h3>
         <p>
           The <code class="text-sm font-bold">Typesetterio\Typesetter\Chapter</code> class contains
-          the content of your markdown for that specific chapter.
+          the content of your markdown for that specific chapter. Your observer receives it as the
+          <code class="text-sm font-bold">Typesetterio\Typesetter\Contracts\Chapter</code>
+          interface.
         </p>
         <p>
           It contains a number of useful methods for you to interact with the content while it is
@@ -859,7 +810,7 @@ file_put_contents('my-pdf.pdf', $pdfContent);
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">isFirstChapter</code></td>
                 <td class="py-1 px-3">
-                  Returns an integer indicating how many total chapters there is to be parsed.
+                  Returns a boolean indicating if this is the first chapter.
                 </td>
               </tr>
               <tr>
@@ -872,7 +823,8 @@ file_put_contents('my-pdf.pdf', $pdfContent);
                 <td class="py-1 px-3"><code class="text-sm font-bold">getMetaData</code></td>
                 <td class="py-1 px-3">
                   If your content has YAML front matter, this will return an array of parsed
-                  properties from it. If not, an empty array.
+                  properties from it. If not, an empty array. Front matter that is not a YAML
+                  mapping throws <code class="text-sm font-bold">UnexpectedValueException</code>.
                 </td>
               </tr>
             </tbody>
@@ -890,6 +842,9 @@ file_put_contents('my-pdf.pdf', $pdfContent);
         <p>
           In order to register a listener, call the
           <code class="text-sm font-bold">listen</code> method with an event class and a callable.
+          Your callable is passed the event. If the class is not an event,
+          <code class="text-sm font-bold">listen</code> throws an
+          <code class="text-sm font-bold">InvalidListenerException</code>.
         </p>
         <p>Here's an example:</p>
         <div class="overflow-x-auto pb-2">
@@ -927,14 +882,14 @@ $service->listen(\Typesetterio\Typesetter\Events\Finished::class, function () us
               </tr>
               <tr>
                 <td class="py-1 px-3">
-                  <code class="text-sm font-bold">InitializedMarkdown</code>
+                  <code class="text-sm font-bold">MarkdownInitialized</code>
                 </td>
                 <td class="py-1 px-3">
                   After the markdown environment has been created and all observers have ran on it.
                 </td>
               </tr>
               <tr>
-                <td class="py-1 px-3"><code class="text-sm font-bold">PDFInitialized</code></td>
+                <td class="py-1 px-3"><code class="text-sm font-bold">PdfInitialized</code></td>
                 <td class="py-1 px-3">
                   After the MPDF instance has been created and lightly configured.
                 </td>
@@ -945,13 +900,11 @@ $service->listen(\Typesetterio\Typesetter\Events\Finished::class, function () us
               </tr>
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">CoverImageAdded</code></td>
-                <td class="py-1 px-3">A cover image has been found in your content and added.</td>
+                <td class="py-1 px-3">A cover image has been found in your theme and added.</td>
               </tr>
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">CoverHtmlAdded</code></td>
-                <td class="py-1 px-3">
-                  A cover html file has been found in your content and added.
-                </td>
+                <td class="py-1 px-3">A cover html file has been found in your theme and added.</td>
               </tr>
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">CoverGenerated</code></td>
@@ -960,7 +913,7 @@ $service->listen(\Typesetterio\Typesetter\Events\Finished::class, function () us
                 </td>
               </tr>
               <tr>
-                <td class="py-1 px-3"><code class="text-sm font-bold">TOCGenerated</code></td>
+                <td class="py-1 px-3"><code class="text-sm font-bold">TocGenerated</code></td>
                 <td class="py-1 px-3">The Table of Contents has been generated and added.</td>
               </tr>
               <tr>
@@ -974,7 +927,7 @@ $service->listen(\Typesetterio\Typesetter\Events\Finished::class, function () us
                 </td>
               </tr>
               <tr>
-                <td class="py-1 px-3"><code class="text-sm font-bold">PDFRendering</code></td>
+                <td class="py-1 px-3"><code class="text-sm font-bold">PdfRendering</code></td>
                 <td class="py-1 px-3">
                   The PDF has started rendering from HTML to PDF binary. This may also take a long
                   time.
@@ -983,7 +936,8 @@ $service->listen(\Typesetterio\Typesetter\Events\Finished::class, function () us
               <tr>
                 <td class="py-1 px-3"><code class="text-sm font-bold">Finished</code></td>
                 <td class="py-1 px-3">
-                  The whole process has finished and a PDF string has been returned from the method.
+                  The whole process has finished and
+                  <code class="text-sm font-bold">generate()</code> is about to return the PDF.
                 </td>
               </tr>
             </tbody>
@@ -1001,21 +955,116 @@ $service->listen(\Typesetterio\Typesetter\Events\Finished::class, function () us
           of an HTML file. This is where you can customize the theme of your PDF. Remember that you
           will be working with print styles in CSS so you can use things like page break.
         </p>
-        <p>More to come here!</p>
-        <h3 class="uppercase">Fonts</h3>
         <p>
-          At this time, Typesetter only supports the fonts that MPDF does. It will support font
-          management in the future.
+          You can also define named pages, like a landscape page, and put an element on one with the
+          <code class="text-sm font-bold">page</code> property:
+        </p>
+        <div class="overflow-x-auto pb-2">
+          <pre class="text-xs font-bold">
+@page landscape {
+    size: landscape;
+    margin: 14mm 18mm 14mm 18mm;
+}
+
+.landscape-page {
+    page: landscape;
+}
+</pre>
+        </div>
+        <p>
+          In a <code class="text-sm font-bold">@page</code> rule you can set
+          <code class="text-sm font-bold">size</code>, the margins, and a background.
         </p>
         <p>
-          To see the list of fonts that are available, see the
+          You can style the Table of Contents too. The heading is
+          <code class="text-sm font-bold">h1#toc-header</code>. Each entry is a div with the class
+          <code class="text-sm font-bold">mpdf_toc_level_0</code> for your first
+          <code class="text-sm font-bold">toc-levels</code> tag,
+          <code class="text-sm font-bold">mpdf_toc_level_1</code> for the second, and so on. Inside
+          it, the text is <code class="text-sm font-bold">span.mpdf_toc_t_level_0</code> and the
+          page number is <code class="text-sm font-bold">span.mpdf_toc_p_level_0</code>. Links are
+          <code class="text-sm font-bold">a.mpdf_toc_a</code>. Use
+          <code class="text-sm font-bold">@page toc-page</code> to change the margins of the Table
+          of Contents page.
+        </p>
+        <p>
+          To start each chapter on a new page, use the
+          <code class="text-sm font-bold">FirstElementInChapterCssClass</code> observer and add
+          <code class="text-sm font-bold">.chapter-beginning { page-break-before: always; }</code>
+          to your theme.
+        </p>
+        <p>
+          Style the footer with <code class="text-sm font-bold">footer.footer</code>. To remove the
+          footer from one of your named pages, add this to its
+          <code class="text-sm font-bold">@page</code> rule:
+        </p>
+        <div class="overflow-x-auto pb-2">
+          <pre class="text-xs font-bold">
+odd-footer-name: html_typesetter-no-footer;
+even-footer-name: html_typesetter-no-footer;
+</pre>
+        </div>
+        <p>
+          Highlighted code is a <code class="text-sm font-bold">&lt;pre&gt;</code> tag with a
+          <code class="text-sm font-bold">data-lang</code> attribute, like
+          <code class="text-sm font-bold">data-lang="php"</code> (or
+          <code class="text-sm font-bold">txt</code> when there is no language). The pieces of code
+          are spans with <code class="text-sm font-bold">hl-</code> classes like
+          <code class="text-sm font-bold">hl-keyword</code>,
+          <code class="text-sm font-bold">hl-comment</code>, and
+          <code class="text-sm font-bold">hl-variable</code>. The theme from the
+          <code class="text-sm font-bold">init</code> command styles them, so start there.
+        </p>
+        <p>
+          The
           <a
-            href="https://github.com/mpdf/mpdf/tree/v8.1.6/ttfonts"
+            href="https://github.com/TypesetterIO/typesetter/tree/main/demo"
+            target="_blank"
+            class="underline"
+            >library's demo</a
+          >
+          is a full working example: see
+          <code class="text-sm font-bold">demo/theme/theme.html</code> and
+          <code class="text-sm font-bold">demo/run.php</code>.
+        </p>
+        <h3 class="uppercase">Fonts</h3>
+        <p>
+          MPDF's bundled font families work by name in your theme's CSS:
+          <code class="text-sm font-bold">dejavusans</code>,
+          <code class="text-sm font-bold">dejavuserif</code>,
+          <code class="text-sm font-bold">dejavusansmono</code>,
+          <code class="text-sm font-bold">freesans</code>,
+          <code class="text-sm font-bold">freeserif</code>,
+          <code class="text-sm font-bold">freemono</code>, and the rest of the
+          <a
+            href="https://github.com/mpdf/mpdf/tree/v8.3.1/ttfonts"
             target="_blank"
             class="underline"
             >MPDF Fonts Directory</a
           >.
         </p>
+        <p>
+          To add your own font, put the folder with its TTF files in
+          <code class="text-sm font-bold">fontDir</code> and the file for each style in
+          <code class="text-sm font-bold">fontdata</code>, both inside the
+          <code class="text-sm font-bold">mpdf</code> option. The bundled fonts stay available. Then
+          use the family name in <code class="text-sm font-bold">theme.html</code>.
+        </p>
+        <div class="overflow-x-auto pb-2">
+          <pre class="text-xs font-bold">
+'mpdf' => [
+    'fontDir' => ['theme/fonts'],
+    'fontdata' => [
+        'ibmplexserif' => [
+            'R' => 'IBMPlexSerif-Regular.ttf',
+            'B' => 'IBMPlexSerif-Bold.ttf',
+            'I' => 'IBMPlexSerif-Italic.ttf',
+            'BI' => 'IBMPlexSerif-BoldItalic.ttf',
+        ],
+    ],
+],
+</pre>
+        </div>
       </section>
 
       <div class="h-[2px] my-6 w-72 mx-auto bg-stone-600"></div>
