@@ -32,12 +32,19 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
-      
-      - name: Install Node.js dependencies
-        run: npm ci
+
+      - name: Setup Vite+ and install dependencies
+        uses: voidzero-dev/setup-vp@v1.21.2
+        with:
+          cache: true
+          run-install: |
+            args: ['--frozen-lockfile']
+
+      - name: Check
+        run: vp check
 
       - name: Build
-        run: npm run build
+        run: vp build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
