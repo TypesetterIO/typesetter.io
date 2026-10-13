@@ -9,7 +9,8 @@
     "dev": "vp dev",
     "build": "vp build",
     "preview": "vp preview",
-    "check": "vp check"
+    "check": "vp check",
+    "zizmor": "zizmor --quiet ."
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",
